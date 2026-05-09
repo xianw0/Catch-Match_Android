@@ -315,6 +315,24 @@ for(let i = 0; i < 180; i++){
 // KEYS
 ////////////////////////////////////////////////////////
 
+    function startGame(){
+
+    if(gameState !== "menu") return;
+
+    menuMusic.pause();
+    menuMusic.currentTime = 0;
+
+    gameMusic.play();
+
+    gameState = "loading";
+    loadingTimer = 180;
+}
+
+window.addEventListener("keydown", startGame);
+window.addEventListener("touchstart", startGame);
+window.addEventListener("click", startGame);
+    
+    
 const keys = {};
 
 window.addEventListener("keydown", (e)=>{
