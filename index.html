@@ -16,7 +16,13 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
 <link rel="shortcut icon" href="Catch&Match.png" type="image/x-icon">
 
 <style>
+canvas{
+    pointer-events:auto;
+}
 
+#mobileControls{
+    pointer-events:auto;
+}
 *{
     margin:0;
     padding:0;
@@ -180,7 +186,7 @@ const ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-
+let canStart = true;
 ////////////////////////////////////////////////////////
 // SOUNDS
 ////////////////////////////////////////////////////////
@@ -317,15 +323,23 @@ for(let i = 0; i < 180; i++){
 
     function startGame(){
 
+    if(!canStart) return;
     if(gameState !== "menu") return;
+
+    canStart = false; // prevents spam triggers
 
     menuMusic.pause();
     menuMusic.currentTime = 0;
 
+    gameMusic.currentTime = 0;
     gameMusic.play();
 
     gameState = "loading";
     loadingTimer = 180;
+
+    setTimeout(()=>{
+        canStart = true;
+    }, 1000);
 }
 
 window.addEventListener("keydown", startGame);
@@ -2162,7 +2176,9 @@ if(keys["d"] || mobileRight){
     player.x += player.speed;
 }
 */
-
+window.addEventListener("keydown", startGame, { passive:true });
+window.addEventListener("touchstart", startGame, { passive:false });
+window.addEventListener("click", startGame);
 ////////////////////////////////////////////////////////
 // RESIZE FIX
 ////////////////////////////////////////////////////////
