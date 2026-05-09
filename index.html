@@ -16,6 +16,43 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
 <link rel="shortcut icon" href="Catch&Match.png" type="image/x-icon">
 
 <style>
+    #mobileMenuButtons{
+
+    position:fixed;
+    top:20px;
+    right:20px;
+
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+
+    z-index:99999;
+}
+
+#mobileMenuButtons button{
+
+    padding:12px 18px;
+
+    border:none;
+    border-radius:10px;
+
+    font-size:16px;
+    font-weight:bold;
+
+    color:white;
+    background:rgba(255,255,255,0.2);
+
+    backdrop-filter:blur(10px);
+}
+
+#restartBtn{
+    background:#4dff88;
+    color:black;
+}
+
+#exitBtn{
+    background:#ff4d4d;
+}
 canvas{
     pointer-events:auto;
 }
@@ -49,6 +86,13 @@ body{
 
 body{
     position:relative;
+
+    <div id="mobileMenuButtons">
+
+    <button id="restartBtn">Restart</button>
+    <button id="exitBtn">Exit</button>
+
+</div>
 }
 
 canvas{
@@ -315,6 +359,35 @@ for(let i = 0; i < 180; i++){
 
         speed:Math.random() * 0.5 + 0.2
     });
+}
+    document.getElementById("restartBtn")
+.addEventListener("click", ()=>{
+
+    if(typeof restartGame === "function"){
+        restartGame();
+    }
+});
+
+    document.getElementById("exitBtn")
+.addEventListener("click", ()=>{
+
+    if(typeof backToMenu === "function"){
+        backToMenu();
+    }
+
+});
+
+    //fuolscreen
+    window.addEventListener("touchstart", goFullscreen, { once:true });
+window.addEventListener("click", goFullscreen, { once:true });
+
+    function goFullscreen(){
+
+    const elem = document.documentElement;
+
+    if(elem.requestFullscreen){
+        elem.requestFullscreen();
+    }
 }
 
 ////////////////////////////////////////////////////////
