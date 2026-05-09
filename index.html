@@ -264,6 +264,9 @@ rainbowMusic.volume = 0.5;
 let gameState = "menu";
 let loadingTimer = 0;
 
+let mobileLeft = false;
+let mobileRight = false;
+
 ////////////////////////////////////////////////////////
 // COLORS
 ////////////////////////////////////////////////////////
@@ -376,7 +379,7 @@ for(let i = 0; i < 180; i++){
 
 });
 
-    //fuolscreen
+    //fullscreen
     window.addEventListener("touchstart", goFullscreen, { once:true });
 window.addEventListener("click", goFullscreen, { once:true });
 
@@ -394,8 +397,6 @@ window.addEventListener("click", goFullscreen, { once:true });
 ////////////////////////////////////////////////////////
 
     function startGame(){
-
-    if(!canStart) return;
     if(gameState !== "menu") return;
 
     canStart = false; // prevents spam triggers
@@ -2012,6 +2013,24 @@ function draw(){
     ctx.fillStyle = gradient;
     ctx.fillRect(0,0,canvas.width,canvas.height);
 }
+    ////////////////////////////////////////////////////////
+// FULLSCREEN SETUP
+////////////////////////////////////////////////////////
+
+function goFullscreen() {
+    const elem = document.documentElement;
+
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    }
+}
+
+function goFullscreen() {
+    document.documentElement.requestFullscreen();
+}
+
+window.addEventListener("click", goFullscreen, { once: true });
+window.addEventListener("touchstart", goFullscreen, { once: true });
 ////////////////////////////////////////////////////////
 // ANIMATION LOOP
 ////////////////////////////////////////////////////////
@@ -2062,9 +2081,6 @@ window.addEventListener("resize", ()=>{
 ////////////////////////////////////////////////////////
 // ADD THIS MOBILE SUPPORT SECTION
 ////////////////////////////////////////////////////////
-
-let mobileLeft = false;
-let mobileRight = false;
 
 const leftBtn =
 document.getElementById("leftBtn");
@@ -2248,9 +2264,8 @@ if(keys["d"] || mobileRight){
     player.x += player.speed;
 }
 */
-window.addEventListener("keydown", startGame, { passive:true });
+window.addEventListener("keydown", startGame);
 window.addEventListener("touchstart", startGame, { passive:false });
-window.addEventListener("click", startGame);
 ////////////////////////////////////////////////////////
 // RESIZE FIX
 ////////////////////////////////////////////////////////
