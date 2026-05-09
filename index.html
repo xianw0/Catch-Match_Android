@@ -1255,6 +1255,19 @@ for(let i = hearts.length - 1; i >= 0; i--){
     }
 }
 
+    function startGame(){
+
+    if(gameState !== "menu") return;
+
+    menuMusic.pause();
+    menuMusic.currentTime = 0;
+
+    gameMusic.play();
+
+    gameState = "loading";
+    loadingTimer = 180;
+}
+    
 ////////////////////////////////////////////////////////
 // DRAW STARS
 ////////////////////////////////////////////////////////
